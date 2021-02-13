@@ -8,7 +8,6 @@ export const SIGN_UP_FAIL = "SIGN_UP_FAIL";
 export const LOG_OFF = "LOG_OFF";
 
 // content
-export const VOLUNTEERING_LIST_SUCCESS = "VOLUNTEERING_LIST_SUCCESS";
-export const DONATION_LIST_SUCCESS = "DONATION_LIST_SUCCESS";
+export const GET_LIST_SUCCESS = "GET_LIST_SUCCESS";
 export const GET_CENTER_SUCCESS = "GET_CENTER_SUCCESS";
 export const ANY_ERROR = "ANY_ERROR";

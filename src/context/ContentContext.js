@@ -1,11 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  VOLUNTEERING_LIST_SUCCESS,
-  DONATION_LIST_SUCCESS,
-  GET_CENTER_SUCCESS,
-  ANY_ERROR,
-} from "./Types";
+import { GET_LIST_SUCCESS, GET_CENTER_SUCCESS, ANY_ERROR } from "./Types";
 import ContentActions from "./ContentActions";
 
 const ContentStateContext = React.createContext();
@@ -13,18 +8,13 @@ const ContentDispatchContext = React.createContext();
 
 function contentReducer(state, action) {
   switch (action.type) {
-    case VOLUNTEERING_LIST_SUCCESS:
+    case GET_LIST_SUCCESS:
       return {
         ...state,
-        volunteeringList: action.payload,
+        actionsList: action.payload,
         contentError: null,
       };
-    case DONATION_LIST_SUCCESS:
-      return {
-        ...state,
-        donationList: action.payload,
-        contentError: null,
-      };
+
     case GET_CENTER_SUCCESS:
       return {
         ...state,
