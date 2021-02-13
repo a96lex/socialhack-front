@@ -10,11 +10,10 @@ import {
 } from "./Types";
 
 function signIn(dispatch) {
-  return async function signInDispatch(email, password) {
+  return async function signInDispatch() {
     try {
-      dispatch({ type: LOG_IN_START });
+      dispatch({ type: LOG_IN_SUCCESS });
       //llamada
-      updateUser(dispatch);
     } catch (error) {
       dispatch({ type: LOG_IN_FAIL, payload: error.message });
     }
@@ -36,8 +35,7 @@ function signUp(dispatch) {
 
 function logOff(dispatch) {
   return async function logOffDispatch() {
-    await AsyncStorage.setItem("@user", null);
-    updateUser(dispatch);
+    dispatch({ type: LOG_OFF });
   };
 }
 

@@ -4,37 +4,32 @@ import { StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
-import EntitiesList from "./src/screens/EntitiesList";
+import Entities from "./src/screens/Entities";
 import EntityScreen from "./src/screens/EntityScreen";
+import Auth from "./src/screens/Auth";
+import CreateRequest from "./src/screens/CreateRequest";
+import { useUserState } from "./src/context/UserContext";
+import Profile from "./src/screens/Profile";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const { loggedIn } = useUserState();
   return (
     <>
       <NavigationContainer>
         <Drawer.Navigator initialRouteName="Entidades">
-          <Drawer.Screen name="Inicio" component={EntitiesList} />
+          <Drawer.Screen name="Inicio" component={Entities} />
           {loggedIn ? (
             <>
-              <Drawer.Screen name="Perfil" component={EntityScreen} />
-              <Drawer.Screen name="Crear petición" component={EntityScreen} />
+              <Drawer.Screen name="Perfil" component={Profile} />
+              <Drawer.Screen name="Crear petición" component={CreateRequest} />
             </>
           ) : (
-            <Drawer.Screen name="Acceso" component={EntityScreen} />
+            <Drawer.Screen name="Acceso" component={Auth} />
           )}
         </Drawer.Navigator>
       </NavigationContainer>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

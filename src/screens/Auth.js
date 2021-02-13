@@ -1,13 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import Header from "../components/Header";
+import { useUserActions } from "../context/UserContext";
 
-export default function EntitiesList({ navigation }) {
+export default function Auth({ navigation }) {
+  const { signIn } = useUserActions();
   return (
     <>
       <Header navigation={navigation} />
       <View style={styles.container}>
-        <Text>Lista de entidades</Text>
+        <Text>Auth screen</Text>
+        <Button onPress={() => signIn()} title="login"></Button>
       </View>
     </>
   );

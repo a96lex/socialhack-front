@@ -22,7 +22,6 @@ function userReducer(state, action) {
         loggedIn: false,
         loggInError: null,
         loggInLoading: true,
-        idToken: null,
       };
     case LOG_IN_SUCCESS:
       return {
@@ -30,8 +29,6 @@ function userReducer(state, action) {
         loggedIn: true,
         loggInError: null,
         loggInLoading: false,
-        userName: action.payload?.name,
-        idToken: action.payload?.idToken,
       };
     case LOG_IN_FAIL:
       return {
