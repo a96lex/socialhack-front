@@ -17,7 +17,7 @@ export default function App() {
     <>
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName="Acceso"
+          initialRouteName="Inicio"
           drawerStyle={{ backgroundColor: "#d19c1d" }}
           header="Menu"
         >
