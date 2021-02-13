@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Header from "../components/Header";
 
-export default function Entities({ navigation }) {
+export default function Home({ navigation }) {
   return (
     <>
       <Header navigation={navigation} />

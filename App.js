@@ -3,7 +3,7 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
-import Entities from "./src/screens/Entities";
+import Home from "./src/screens/Home";
 import Auth from "./src/screens/Auth";
 import CreateRequest from "./src/screens/CreateRequest";
 import { useUserState } from "./src/context/UserContext";
@@ -21,7 +21,7 @@ export default function App() {
           drawerStyle={{ backgroundColor: "#d19c1d" }}
           header="Menu"
         >
-          <Drawer.Screen name="Inicio" component={Entities} />
+          <Drawer.Screen name="Inicio" component={Home} />
           {loggedIn ? (
             <>
               <Drawer.Screen name="Perfil" component={Profile} />
