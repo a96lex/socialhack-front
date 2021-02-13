@@ -1,5 +1,6 @@
 {
   "main": "index.js",
+  "homepage": ".",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -8,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/vector-icons": "^12.0.3",
     "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-navigation/bottom-tabs": "^5.11.7",
     "@react-navigation/drawer": "^5.12.3",
