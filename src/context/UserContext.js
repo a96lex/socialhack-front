@@ -1,14 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  LOG_IN_START,
-  LOG_IN_SUCCESS,
-  LOG_IN_FAIL,
-  LOG_OFF,
-  SIGN_UP_FAIL,
-  SIGN_UP_START,
-  SIGN_UP_SUCCESS,
-} from "./Types";
+import { LOG_IN_SUCCESS, LOG_OFF, SIGN_UP_SUCCESS, ANY_ERROR } from "./Types";
 import UserActions from "./UserActions";
 
 const UserStateContext = React.createContext();
@@ -16,13 +8,6 @@ const UserDispatchContext = React.createContext();
 
 function userReducer(state, action) {
   switch (action.type) {
-    case LOG_IN_START:
-      return {
-        ...state,
-        loggedIn: false,
-        loggInError: null,
-        loggInLoading: true,
-      };
     case LOG_IN_SUCCESS:
       return {
         ...state,
@@ -30,21 +15,7 @@ function userReducer(state, action) {
         loggInError: null,
         loggInLoading: false,
       };
-    case LOG_IN_FAIL:
-      return {
-        ...state,
-        loggedIn: false,
-        loggInError: action.payload,
-        loggInLoading: false,
-        idToken: null,
-      };
-    case SIGN_UP_START:
-      return {
-        ...state,
-        signUpLoading: true,
-        signUpError: null,
-        idToken: null,
-      };
+
     case SIGN_UP_SUCCESS:
       return {
         ...state,
@@ -52,20 +23,22 @@ function userReducer(state, action) {
         signUpError: null,
         idToken: null,
       };
-    case SIGN_UP_FAIL:
-      return {
-        ...state,
-        signUpLoading: false,
-        signUpError: action.payload,
-        idToken: null,
-      };
+
     case LOG_OFF:
       return {
         ...state,
         loggedIn: false,
-        loggInError: null,
-        loggInLoading: false,
-        idToken: null,
+        anyError: null,
+        token: null,
+        isEntity: null,
+      };
+    case ANY_ERROR:
+      return {
+        ...state,
+        loggedIn: false,
+        anyError: action.payload,
+        token: null,
+        isEntity: null,
       };
     default:
       return state;
@@ -74,12 +47,9 @@ function userReducer(state, action) {
 
 const INITIAL_STATE = {
   loggedIn: false,
-  loggInError: false,
-  loggInLoading: false,
-  signUpLoading: false,
-  signUpError: null,
-  userName: null,
-  idToken: null,
+  anyError: null,
+  name: null,
+  token: null,
   isEntity: null,
 };
 

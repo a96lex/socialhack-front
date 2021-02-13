@@ -1,13 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  LOG_IN_START,
-  LOG_IN_SUCCESS,
-  LOG_IN_FAIL,
-  LOG_OFF,
-  SIGN_UP_FAIL,
-  SIGN_UP_START,
-  SIGN_UP_SUCCESS,
-} from "./Types";
+import { LOG_IN_SUCCESS, LOG_OFF, SIGN_UP_SUCCESS, ANY_ERROR } from "./Types";
 
 function signIn(dispatch) {
   return async function signInDispatch() {
@@ -15,7 +6,7 @@ function signIn(dispatch) {
       dispatch({ type: LOG_IN_SUCCESS });
       //llamada
     } catch (error) {
-      dispatch({ type: LOG_IN_FAIL, payload: error.message });
+      dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };
 }
@@ -23,12 +14,11 @@ function signIn(dispatch) {
 function signUp(dispatch) {
   return async function signUpDispatch(email, password) {
     try {
-      dispatch({ type: SIGN_UP_START });
       // llamada
       dispatch({ type: SIGN_UP_SUCCESS });
       signIn(email, password, dispatch);
     } catch (error) {
-      dispatch({ type: SIGN_UP_FAIL, payload: error.message });
+      dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };
 }
