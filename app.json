@@ -1,0 +1,12 @@
+{
+  "name": "pontech",
+  "displayName": "pontech",
+  "expo": {
+    "name": "pontech",
+    "slug": "pontech",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
