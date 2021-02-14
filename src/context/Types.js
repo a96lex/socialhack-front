@@ -10,6 +10,7 @@ export const LOG_OFF = "LOG_OFF";
 // content
 export const GET_LIST_START = "GET_LIST_SUCCESS";
 export const GET_LIST_SUCCESS = "GET_LIST_SUCCESS";
+export const CREATE_ACCTION_SUCCESS = "CREATE_ACCTION_SUCCESS";
 export const GET_CENTER_SUCCESS = "GET_CENTER_SUCCESS";
 export const SET_CENTER_ID = "SET_CENTER_ID";
 export const ANY_ERROR = "ANY_ERROR";
