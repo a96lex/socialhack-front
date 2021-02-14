@@ -8,7 +8,6 @@ import {
 
 function getList(dispatch) {
   return async function getListDispatch(parameters) {
-    console.log(parameters);
     const endpoint = parameters?.isDonation ? "donations" : "volunteering";
     const params = {
       ...(parameters?.urgency ? { urgency: parameters.urgency } : {}),
@@ -16,15 +15,12 @@ function getList(dispatch) {
       ...(parameters?.duration ? { urgency: parameters.duration } : {}),
       ...(parameters?.centerId ? { centerId: parameters.centerId } : {}),
     };
-    console.log(params);
     try {
       const { data } = await axios.get(`http://localhost:8080/${endpoint}`, {
         params,
       });
-      console.log(JSON.parse(data));
       dispatch({ type: GET_LIST_SUCCESS, payload: data });
     } catch (error) {
-      console.log(error.message);
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };
@@ -45,15 +41,28 @@ function getCenter(dispatch) {
     const params = {
       id,
     };
-    console.log(params);
     try {
       const { data } = await axios.get("http://localhost:8080/center", {
         params,
       });
-      console.log(data);
       dispatch({ type: GET_CENTER_SUCCESS, payload: data });
     } catch (error) {
-      console.log(error.message);
+      dispatch({ type: ANY_ERROR, payload: error.message });
+    }
+  };
+}
+
+function updateAction(dispatch) {
+  return async function getCenterDispatch(id) {
+    const params = {
+      id,
+    };
+    try {
+      const { data } = await axios.get("http://localhost:8080/update", {
+        params,
+      });
+      dispatch({ type: GET_CENTER_SUCCESS, payload: data });
+    } catch (error) {
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };

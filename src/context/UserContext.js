@@ -9,10 +9,9 @@ const UserDispatchContext = React.createContext();
 function userReducer(state, action) {
   switch (action.type) {
     case LOG_IN_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
-        name: action.payload?.name,
+        name: action.payload?.username,
         token: action.payload?.token,
         isEntity: action.isEntity,
         loggedIn: true,
