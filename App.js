@@ -8,16 +8,18 @@ import Auth from "./src/screens/Auth";
 import CreateRequest from "./src/screens/CreateRequest";
 import { useUserState } from "./src/context/UserContext";
 import Profile from "./src/screens/Profile";
+import Faq from "./src/screens/Faq";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const { loggedIn } = useUserState();
+  const { loggedIn, isEntity } = useUserState();
+
   return (
     <>
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName="Inicio"
+          initialRouteName="INICIO"
           drawerStyle={{ backgroundColor: "#d19c1d", paddingTop: 50 }}
           header="Menu"
           drawerType="slide"
@@ -37,11 +39,17 @@ export default function App() {
           {loggedIn ? (
             <>
               <Drawer.Screen name="PERFIL" component={Profile} />
-              <Drawer.Screen name="CREAR PETICIÓN" component={CreateRequest} />
+              {isEntity && (
+                <Drawer.Screen
+                  name="CREAR PETICIÓN"
+                  component={CreateRequest}
+                />
+              )}
             </>
           ) : (
             <Drawer.Screen name="ACCESO" component={Auth} />
           )}
+          <Drawer.Screen name="FAQ" component={Faq} />
         </Drawer.Navigator>
       </NavigationContainer>
     </>
