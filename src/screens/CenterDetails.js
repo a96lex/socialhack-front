@@ -11,18 +11,19 @@ function DetailItem({ label, text }) {
       <Text
         style={{
           alignSelf: "flex-start",
+          fontSize: "100%",
           marginTop: 8,
           marginLeft: 8,
           marginRight: 8,
           marginBottom: 1,
+          fontWeight: "bold",
         }}
       >
         {label}
       </Text>
       <Text
         style={{
-          fontWeight: "bold",
-          fontSize: "110%",
+          fontSize: "100%",
           alignSelf: "flex-start",
           marginTop: 1,
           marginLeft: 8,
@@ -40,7 +41,7 @@ function DetailDisplay({ data }) {
   return (
     <>
       <DetailItem label="Páxina web" text={data?.web} />
-      <DetailItem label="descripción" text={data?.description} />
+      <DetailItem label="Descripción" text={data?.description} />
       <DetailItem label="Área" text={data?.activity} />
       <DetailItem
         label="Sin ánimo de lucro"
@@ -60,7 +61,6 @@ export default function CenterDetails({ navigation }) {
   return (
     <>
       <Header navigation={navigation} />
-
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.returnButton}
@@ -68,7 +68,7 @@ export default function CenterDetails({ navigation }) {
         >
           <Text>voltar</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{vacas?.CEN_NOME}</Text>
+        <Text style={styles.headerTitle}>{centerData?.entityName}</Text>
         <View style={styles.toggleBar}>
           <Text
             style={isDetails ? styles.active : styles.inactive}
