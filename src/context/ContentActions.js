@@ -1,30 +1,30 @@
+import axios from "axios";
 import {
-  GET_LIST_START,
   GET_LIST_SUCCESS,
   GET_CENTER_SUCCESS,
   SET_CENTER_ID,
   ANY_ERROR,
 } from "./Types";
 
-function getVolunteeringList(dispatch) {
-  return async function getVolunteeringListDispatch() {
+function getList(dispatch) {
+  return async function getListDispatch(parameters) {
+    console.log(parameters);
+    const endpoint = parameters?.isDonation ? "donations" : "volunteering";
+    const params = {
+      ...(parameters?.urgency ? { urgency: parameters.urgency } : {}),
+      ...(parameters?.locality ? { locality: parameters.locality } : {}),
+      ...(parameters?.duration ? { urgency: parameters.duration } : {}),
+      ...(parameters?.centerId ? { centerId: parameters.centerId } : {}),
+    };
+    console.log(params);
     try {
-      dispatch({ type: GET_LIST_START });
-      //llamada
-      dispatch({ type: GET_LIST_SUCCESS, payload: "data" });
+      const { data } = await axios.get(`http://localhost:8080/${endpoint}`, {
+        params,
+      });
+      console.log(JSON.parse(data));
+      dispatch({ type: GET_LIST_SUCCESS, payload: data });
     } catch (error) {
-      dispatch({ type: ANY_ERROR, payload: error.message });
-    }
-  };
-}
-
-function getDonationList(dispatch) {
-  return async function getDonationListDispatch() {
-    try {
-      dispatch({ type: GET_LIST_START });
-      //llamada
-      dispatch({ type: GET_LIST_SUCCESS, payload: "data" });
-    } catch (error) {
+      console.log(error.message);
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };
@@ -41,14 +41,22 @@ function setCenterId(dispatch) {
 }
 
 function getCenter(dispatch) {
-  return async function getCenterDispatch() {
+  return async function getCenterDispatch(id) {
+    const params = {
+      id,
+    };
+    console.log(params);
     try {
-      //llamada
-      dispatch({ type: GET_CENTER_SUCCESS, payload: "data" });
+      const { data } = await axios.get("http://localhost:8080/center", {
+        params,
+      });
+      console.log(data);
+      dispatch({ type: GET_CENTER_SUCCESS, payload: data });
     } catch (error) {
+      console.log(error.message);
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };
 }
 
-export default { getVolunteeringList, getDonationList, setCenterId, getCenter };
+export default { getList, setCenterId, getCenter };
