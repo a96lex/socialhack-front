@@ -4,11 +4,18 @@ import axios from "axios";
 function signIn(dispatch) {
   return async function signInDispatch(email, password) {
     try {
-      const { data } = await axios.get("endpoint", {
-        params: { name: email, password: password },
-      });
-      console.log(data);
-      dispatch({ type: LOG_IN_SUCCESS });
+      const { data } = await axios.get(
+        "http://localhost:8080/authentication/login",
+        {
+          params: { email, password, ...(mail ? { mail } : {}) },
+        }
+      );
+      if (data.username) {
+        const isEntity = data?.isEntity === "true";
+        dispatch({ type: LOG_IN_SUCCESS, payload: data, isEntity });
+      } else {
+        dispatch({ type: ANY_ERROR, payload: data });
+      }
     } catch (error) {
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
@@ -16,11 +23,15 @@ function signIn(dispatch) {
 }
 
 function signUp(dispatch) {
-  return async function signUpDispatch(email, password) {
+  return async function signUpDispatch(username, email, password, isEntity) {
     try {
-      // llamada
-      dispatch({ type: SIGN_UP_SUCCESS });
-      signIn(email, password, dispatch);
+      const { data } = await axios.get(
+        "http://localhost:8080/authentication/register",
+        {
+          params: { username, email, password, isEntity },
+        }
+      );
+      signIn(dispatch)(email, password);
     } catch (error) {
       dispatch({ type: ANY_ERROR, payload: error.message });
     }

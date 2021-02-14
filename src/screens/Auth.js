@@ -5,12 +5,21 @@ import Header from "../components/Header";
 import { useUserActions } from "../context/UserContext";
 
 export default function Auth({ navigation }) {
-  const { signIn } = useUserActions();
+  const { signIn, signUp } = useUserActions();
   const [isLogin, setIsLogin] = useState(false);
   const [isEntity, setIsEntity] = useState(false);
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignUp = () => {
+    if (!username || !email || !password) {
+      alert("missing fields");
+    } else {
+      signUp(username, email, password, isEntity);
+    }
+  };
+
   return (
     <>
       <Header navigation={navigation} />
@@ -27,8 +36,9 @@ export default function Auth({ navigation }) {
             />
             <TextInput
               style={styles.signUpDiv}
-              onChangeText={(text) => setPass(text)}
-              value={pass}
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
               placeholder="contrasinal"
             />
             <Text
@@ -36,7 +46,7 @@ export default function Auth({ navigation }) {
                 styles.signUpDiv,
                 { backgroundColor: "#d19c1d", color: "#fff", borderWidth: 0 },
               ]}
-              onPress={() => signIn(email, pass)}
+              onPress={() => signIn(email, password)}
             >
               Entra
             </Text>
@@ -66,8 +76,8 @@ export default function Auth({ navigation }) {
             </View>
             <TextInput
               style={styles.signUpDiv}
-              onChangeText={(text) => setName(text)}
-              value={name}
+              onChangeText={(text) => setUsername(text)}
+              value={username}
               placeholder={isEntity ? "nomee entidade" : "nomee usuario"}
             />
             <TextInput
@@ -78,8 +88,9 @@ export default function Auth({ navigation }) {
             />
             <TextInput
               style={styles.signUpDiv}
-              onChangeText={(text) => setPass(text)}
-              value={pass}
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
               placeholder="contrasinal"
             />
             <Text
@@ -87,7 +98,7 @@ export default function Auth({ navigation }) {
                 styles.signUpDiv,
                 { backgroundColor: "#d19c1d", color: "#fff", borderWidth: 0 },
               ]}
-              onPress={() => signIn()}
+              onPress={() => handleSignUp()}
             >
               Empezar
             </Text>
