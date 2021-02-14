@@ -10,9 +10,10 @@ export default function Home({ navigation }) {
   const [isDonation, setIsDonation] = useState(false);
   const [urgency, setUrgency] = useState(null);
   const [locality, setLocality] = useState(null);
-  // const { actionsListLoading, actionsList } = useContentState();
+  const { actionsListLoading, actionsList } = useContentState();
   const { setCenterId, getList, getCenter } = useContentActions();
-  const actionsList = actionTest;
+  //const actionsList = actionTest;
+  const list = actionsList?.data;
 
   const goToDetails = (centerId) => {
     setCenterId(centerId);
@@ -46,34 +47,38 @@ export default function Home({ navigation }) {
           <View style={styles.cardContainer}>
             <View style={{ flexDirection: "row" }}>
               <Picker
+                style={styles.pickerStyle}
                 selectedValue={urgency}
                 onValueChange={(itemValue, itemIndex) => setUrgency(itemValue)}
               >
-                <Picker.Item label="Baixa" value={0} />
-                <Picker.Item label="Media" value={1} />
-                <Picker.Item label="Alta" value={2} />
+                <Picker.Item label="Baixa" />
+                <Picker.Item label="Media" />
+                <Picker.Item label="Alta" />
               </Picker>
               <Picker
+                style={styles.pickerStyle}
                 selectedValue={locality}
-                onValueChange={(itemValue) => setUrgency(itemValue)}
+                onValueChange={(itemValue) => setLocality(itemValue)}
               >
                 {Municipios.map((m) => (
                   <Picker.Item label={m} value={undefined} />
                 ))}
               </Picker>
-              <View
+
+              <Text
+                style={styles.pickerStyle}
                 onPress={() => {
                   setUrgency(null), setLocality(null);
                 }}
               >
-                <Text>Borra filtros</Text>
-              </View>
+                borrar
+              </Text>
             </View>
-            {!actionsList ? (
+            {!list ? (
               <Text>Cargando...</Text>
             ) : (
               <>
-                {actionsList.map((t) => (
+                {list.map((t) => (
                   <View style={styles.taskCard} key={t?.id}>
                     <Text style={styles.title}>{t?.Title}</Text>
                     <Text numberOfLines={3}>
@@ -83,12 +88,12 @@ export default function Home({ navigation }) {
                     <View style={styles.cardBottomFlex}>
                       <Text
                         style={styles.title}
-                        onPress={() => goToDetails(t?.id)}
+                        onPress={() => goToDetails(t?.centerId)}
                       >
-                        ver más
+                        Ver más
                       </Text>
                       <Text style={[styles.title, { color: "#D19C1D" }]}>
-                        {t?.nome}
+                        {t?.locality.toLowerCase()}
                       </Text>
                     </View>
                   </View>
@@ -150,11 +155,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  title: { color: "#3D3B3B", fontWeight: "bold", fontSize: "100%" },
+  title: {
+    color: "#3D3B3B",
+    fontWeight: "bold",
+    fontSize: "95%",
+    textTransform: "capitalize",
+  },
   cardBottomFlex: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingTop: 15,
     alignItems: "flex-end",
+  },
+  pickerStyle: {
+    textAlign: "center",
+    backgroundColor: "#596683",
+    color: "#fff",
+    margin: 2,
+    padding: 3,
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderRadius: 2,
   },
 });
