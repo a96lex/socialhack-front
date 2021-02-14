@@ -4,15 +4,15 @@ import { Picker } from "@react-native-community/picker";
 import { ScrollView } from "react-native-gesture-handler";
 import Header from "../components/Header";
 import { useContentActions, useContentState } from "../context/ContentContext";
-import { Municipios, DefaultShadow, actionTest } from "../constants";
+import { Municipios, DefaultShadow } from "../constants";
 
 export default function Home({ navigation }) {
   const [isDonation, setIsDonation] = useState(false);
   const [urgency, setUrgency] = useState(null);
   const [locality, setLocality] = useState(null);
-  const { actionsListLoading, actionsList } = useContentState();
+  const { actionsList } = useContentState();
   const { setCenterId, getList, getCenter } = useContentActions();
-  //const actionsList = actionTest;
+
   const list = actionsList?.data;
 
   const goToDetails = (centerId) => {
@@ -80,7 +80,9 @@ export default function Home({ navigation }) {
               <>
                 {list.map((t) => (
                   <View style={styles.taskCard} key={t?.id}>
-                    <Text style={styles.title}>{t?.Title}</Text>
+                    <Text style={styles.title}>
+                      {t?.title ? t.title : t?.item && t.item}
+                    </Text>
                     <Text numberOfLines={3}>
                       {t?.description}
                       {"\n\n\n"}
