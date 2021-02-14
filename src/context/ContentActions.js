@@ -5,10 +5,11 @@ import {
   SET_CENTER_ID,
   ANY_ERROR,
 } from "./Types";
+import { Endpoint } from "../constants";
 
 function getList(dispatch) {
   return async function getListDispatch(parameters) {
-    const endpoint = parameters?.isDonation ? "donations" : "volunteering";
+    const decorator = parameters?.isDonation ? "donations" : "volunteering";
     const params = {
       ...(parameters?.urgency ? { urgency: parameters.urgency } : {}),
       ...(parameters?.locality ? { locality: parameters.locality } : {}),
@@ -16,7 +17,7 @@ function getList(dispatch) {
       ...(parameters?.centerId ? { centerId: parameters.centerId } : {}),
     };
     try {
-      const { data } = await axios.get(`http://localhost:8080/${endpoint}`, {
+      const { data } = await axios.get(`${Endpoint}${decorator}`, {
         params,
       });
       dispatch({ type: GET_LIST_SUCCESS, payload: data });
@@ -42,7 +43,7 @@ function getCenter(dispatch) {
       id,
     };
     try {
-      const { data } = await axios.get("http://localhost:8080/center", {
+      const { data } = await axios.get(`${Endpoint}center`, {
         params,
       });
       dispatch({ type: GET_CENTER_SUCCESS, payload: data });
@@ -52,20 +53,33 @@ function getCenter(dispatch) {
   };
 }
 
-function updateAction(dispatch) {
-  return async function getCenterDispatch(id) {
+function uploadAction(dispatch) {
+  return async function getCenterDispatch(parameters) {
+    const decorator = parameters?.isDonation ? "donations" : "volunteering";
+    console.log(parameters);
     const params = {
-      id,
+      ...(parameters?.urgency ? { urgency: parameters.urgency } : {}),
+      ...(parameters?.item ? { item: parameters.item } : {}),
+      ...(parameters?.locality ? { locality: parameters.locality } : {}),
+      ...(parameters?.duration ? { duration: parameters.duration } : {}),
+      ...(parameters?.description
+        ? { description: parameters.description }
+        : {}),
+      ...(parameters?.title ? { title: parameters.title } : {}),
+      ...(parameters?.centerId
+        ? { centerId: parameters.centerId }
+        : { centerId: "0_95" }),
     };
+    console.log(params);
     try {
-      const { data } = await axios.get("http://localhost:8080/update", {
+      await axios.get(`${Endpoint}${decorator}/create`, {
         params,
       });
-      dispatch({ type: GET_CENTER_SUCCESS, payload: data });
+      dispatch({ type: CREATE_ACCTION_SUCCESS });
     } catch (error) {
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
   };
 }
 
-export default { getList, setCenterId, getCenter };
+export default { getList, setCenterId, getCenter, uploadAction };
