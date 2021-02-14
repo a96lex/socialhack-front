@@ -16,7 +16,7 @@ export default function Auth({ navigation }) {
       <Header navigation={navigation} />
 
       <View style={styles.container}>
-        <Text>{isLogin ? "Acceso de usuarios" : "Registro de usuarios"}</Text>
+        <Text style={styles.title}>{isLogin ? "Acceso" : "Rexístrache"}</Text>
         {isLogin ? (
           <>
             <TextInput
@@ -68,7 +68,7 @@ export default function Auth({ navigation }) {
               style={styles.signUpDiv}
               onChangeText={(text) => setName(text)}
               value={name}
-              placeholder="nomee"
+              placeholder={isEntity ? "nomee entidade" : "nomee usuario"}
             />
             <TextInput
               style={styles.signUpDiv}
@@ -104,6 +104,7 @@ export default function Auth({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  title: { fontWeight: "bold", fontSize: "110%" },
   container: {
     flex: 1,
     alignItems: "center",
