@@ -2,10 +2,10 @@ import { LOG_IN_SUCCESS, LOG_OFF, SIGN_UP_SUCCESS, ANY_ERROR } from "./Types";
 import axios from "axios";
 
 function signIn(dispatch) {
-  return async function signInDispatch(name, pass) {
+  return async function signInDispatch(email, password) {
     try {
       const { data } = await axios.get("endpoint", {
-        params: { name: name, password: pass },
+        params: { name: email, password: password },
       });
       console.log(data);
       dispatch({ type: LOG_IN_SUCCESS });

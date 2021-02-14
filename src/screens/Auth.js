@@ -36,7 +36,7 @@ export default function Auth({ navigation }) {
                 styles.signUpDiv,
                 { backgroundColor: "#d19c1d", color: "#fff", borderWidth: 0 },
               ]}
-              onPress={() => signIn()}
+              onPress={() => signIn(email, pass)}
             >
               Entra
             </Text>
