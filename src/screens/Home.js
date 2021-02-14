@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { Picker } from "@react-native-community/picker";
 import { ScrollView } from "react-native-gesture-handler";
 import Header from "../components/Header";
 import { useContentActions, useContentState } from "../context/ContentContext";
-import { actionTest } from "../constants/test";
-import { DefaultShadow } from "../constants/Style";
+import { Municipios, DefaultShadow, actionTest } from "../constants";
 
 export default function Home({ navigation }) {
   const [isDonation, setIsDonation] = useState(false);
-  const { actionsListLoading } = useContentState();
-  const { setCenterId } = useContentActions();
+  const [urgency, setUrgency] = useState(null);
+  const [locality, setLocality] = useState(null);
+  // const { actionsListLoading, actionsList } = useContentState();
+  const { setCenterId, getList, getCenter } = useContentActions();
+  const actionsList = actionTest;
 
   const goToDetails = (centerId) => {
-    console.log(centerId);
     setCenterId(centerId);
+    getCenter(centerId);
     navigation.navigate("Details");
   };
+
+  useEffect(() => {
+    getList({ isDonation, urgency, locality });
+  }, [locality, urgency, isDonation]);
 
   return (
     <>
@@ -37,11 +44,36 @@ export default function Home({ navigation }) {
         </View>
         <ScrollView>
           <View style={styles.cardContainer}>
-            {actionsListLoading ? (
+            <View style={{ flexDirection: "row" }}>
+              <Picker
+                selectedValue={urgency}
+                onValueChange={(itemValue, itemIndex) => setUrgency(itemValue)}
+              >
+                <Picker.Item label="Baixa" value={0} />
+                <Picker.Item label="Media" value={1} />
+                <Picker.Item label="Alta" value={2} />
+              </Picker>
+              <Picker
+                selectedValue={locality}
+                onValueChange={(itemValue) => setUrgency(itemValue)}
+              >
+                {Municipios.map((m) => (
+                  <Picker.Item label={m} value={undefined} />
+                ))}
+              </Picker>
+              <View
+                onPress={() => {
+                  setUrgency(null), setLocality(null);
+                }}
+              >
+                <Text>Borra filtros</Text>
+              </View>
+            </View>
+            {!actionsList ? (
               <Text>Cargando...</Text>
             ) : (
               <>
-                {actionTest.map((t) => (
+                {actionsList.map((t) => (
                   <View style={styles.taskCard} key={t?.id}>
                     <Text style={styles.title}>{t?.Title}</Text>
                     <Text numberOfLines={3}>
