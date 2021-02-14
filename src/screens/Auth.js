@@ -78,7 +78,7 @@ export default function Auth({ navigation }) {
               style={styles.signUpDiv}
               onChangeText={(text) => setUsername(text)}
               value={username}
-              placeholder={isEntity ? "nomee entidade" : "nomee usuario"}
+              placeholder={isEntity ? "nome entidade" : "nome usuario"}
             />
             <TextInput
               style={styles.signUpDiv}
