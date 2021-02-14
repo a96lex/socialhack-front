@@ -1,10 +1,14 @@
 import { LOG_IN_SUCCESS, LOG_OFF, SIGN_UP_SUCCESS, ANY_ERROR } from "./Types";
+import axios from "axios";
 
 function signIn(dispatch) {
-  return async function signInDispatch() {
+  return async function signInDispatch(name, pass) {
     try {
+      const { data } = await axios.get("endpoint", {
+        params: { name: name, password: pass },
+      });
+      console.log(data);
       dispatch({ type: LOG_IN_SUCCESS });
-      //llamada
     } catch (error) {
       dispatch({ type: ANY_ERROR, payload: error.message });
     }
