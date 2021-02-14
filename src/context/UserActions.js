@@ -3,11 +3,12 @@ import axios from "axios";
 
 function signIn(dispatch) {
   return async function signInDispatch(email, password) {
+    console.log("here");
     try {
       const { data } = await axios.get(
         "http://localhost:8080/authentication/login",
         {
-          params: { email, password, ...(mail ? { mail } : {}) },
+          params: { email, password },
         }
       );
       if (data.username) {
