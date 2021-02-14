@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Header from "../components/Header";
 import { useContentActions, useContentState } from "../context/ContentContext";
+import { actionTest } from "../constants/test";
+import { DefaultShadow } from "../constants/Style";
 
 export default function Home({ navigation }) {
   const [isDonation, setIsDonation] = useState(false);
@@ -14,57 +16,6 @@ export default function Home({ navigation }) {
     setCenterId(centerId);
     navigation.navigate("Details");
   };
-
-  const test = [
-    {
-      id: 21,
-      Title: "Sweden",
-      description: "works,",
-      nome: "centro1",
-    },
-    {
-      id: 24,
-      Title: "Sweden",
-      description:
-        "when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
-      nome: "centro2",
-    },
-    {
-      id: 23,
-      Title: "Sweden",
-      description:
-        "but also the leap into electronic typesetting, remaining essentially unchanged",
-      nome: "centro3",
-    },
-    {
-      id: 258,
-      Title: "Sweden",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
-      nome: "centro4",
-    },
-    {
-      id: 26348,
-      Title: "Sweden",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
-      nome: "centro5",
-    },
-    {
-      id: 524426,
-      Title: "USA",
-      description:
-        "when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries",
-      nome: "centro6",
-    },
-    {
-      id: 89,
-      Title: "England",
-      description:
-        "but also the leap into electronic typesetting, remaining essentially unchanged",
-      nome: "centro7",
-    },
-  ];
 
   return (
     <>
@@ -90,8 +41,8 @@ export default function Home({ navigation }) {
               <Text>Cargando...</Text>
             ) : (
               <>
-                {test.map((t) => (
-                  <View style={styles.taskCard}>
+                {actionTest.map((t) => (
+                  <View style={styles.taskCard} key={t?.id}>
                     <Text style={styles.title}>{t?.Title}</Text>
                     <Text numberOfLines={3}>
                       {t?.description}
@@ -157,9 +108,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     margin: 5,
+    ...DefaultShadow,
   },
   cardContainer: {
     width: "100vw",
+    backgroundColor: "#F0F1F5",
     padding: 10,
     flex: 1,
     alignItems: "center",
