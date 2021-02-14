@@ -18,17 +18,29 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="Inicio"
-          drawerStyle={{ backgroundColor: "#d19c1d" }}
+          drawerStyle={{ backgroundColor: "#d19c1d", paddingTop: 50 }}
           header="Menu"
+          drawerType="slide"
+          overlayColor="transparent"
+          drawerContentOptions={{
+            activeTintColor: "white",
+            activeBackgroundColor: "d19c1d",
+            inactiveTintColor: "white",
+            inactiveBackgroundColor: "d19c1d",
+            labelStyle: {
+              marginLeft: 5,
+              fontSize: "110%",
+            },
+          }}
         >
-          <Drawer.Screen name="Inicio" component={HomeNavigation} />
+          <Drawer.Screen name="INICIO" component={HomeNavigation} />
           {loggedIn ? (
             <>
-              <Drawer.Screen name="Perfil" component={Profile} />
-              <Drawer.Screen name="Crear petición" component={CreateRequest} />
+              <Drawer.Screen name="PERFIL" component={Profile} />
+              <Drawer.Screen name="CREAR PETICIÓN" component={CreateRequest} />
             </>
           ) : (
-            <Drawer.Screen name="Acceso" component={Auth} />
+            <Drawer.Screen name="ACCESO" component={Auth} />
           )}
         </Drawer.Navigator>
       </NavigationContainer>
