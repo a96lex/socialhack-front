@@ -16,7 +16,7 @@ export default function Auth({ navigation }) {
       <Header navigation={navigation} />
 
       <View style={styles.container}>
-        <Text style={styles.title}>{isLogin ? "Acceso" : "Rexístrache"}</Text>
+        <Text style={styles.title}>{isLogin ? "Acceso" : "Rexístrate"}</Text>
         {isLogin ? (
           <>
             <TextInput
