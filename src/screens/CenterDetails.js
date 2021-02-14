@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Header from "../components/Header";
-import { useContentState } from "../context/ContentContext";
+import { useContentActions, useContentState } from "../context/ContentContext";
 import { actionTest, vacas, DefaultShadow } from "../constants";
 
 function DetailItem({ label, text }) {
@@ -39,24 +39,21 @@ function DetailItem({ label, text }) {
 function DetailDisplay({ data }) {
   return (
     <>
-      <DetailItem label="Páxina web" text={data?.WEB} />
-      <DetailItem label="descripción" text={data?.Descripcion} />
-      <DetailItem label="Área" text={data?.CEN_AREA} />
+      <DetailItem label="Páxina web" text={data?.web} />
+      <DetailItem label="descripción" text={data?.description} />
+      <DetailItem label="Área" text={data?.activity} />
       <DetailItem
         label="Sin ánimo de lucro"
-        text={data?.ENT_ANIMO_LUCRO ? "No" : "Si"}
+        text={data?.nonProfit === "true" ? "No" : "Si"}
       />
-      <DetailItem
-        label="Contacto"
-        text={data?.CEN_TELEFONO + "\n" + data?.CEN_EMAIL}
-      />
-      <DetailItem label="Dirección" text={data?.CEN_DIRECCION} />
+      <DetailItem label="Contacto" text={data?.phone + "\n" + data?.email} />
+      <DetailItem label="Dirección" text={data?.address} />
     </>
   );
 }
 
 export default function CenterDetails({ navigation }) {
-  const { centerId, actionsListLoading } = useContentState();
+  const { actionsListLoading, centerData } = useContentState();
   const [isDetails, setIsDetails] = useState(true);
   const [isDonation, setIsDonation] = useState(true);
 
@@ -101,7 +98,7 @@ export default function CenterDetails({ navigation }) {
         <ScrollView>
           <View style={styles.cardContainer}>
             {isDetails ? (
-              <DetailDisplay data={vacas} />
+              <DetailDisplay data={centerData} />
             ) : (
               <>
                 {actionsListLoading ? (
