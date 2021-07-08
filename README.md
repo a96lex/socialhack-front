@@ -4,6 +4,8 @@ React native app created for the #SocialHack hackathon.
 
 Live demo available [here](http://socialhack-frontend.s3-website-eu-west-1.amazonaws.com/)
 
+**Warning:** Backend is no longer accessible
+
 No backend is connected.
 
 It uses:
